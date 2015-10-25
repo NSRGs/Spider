@@ -9,6 +9,12 @@ from pyspider.libs.base_handler import *
 
 class Handler(BaseHandler):
     crawl_config = {
+        "headers": {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
+        }
+
     }
 
     @every(minutes=24 * 60)
@@ -34,8 +40,8 @@ class Handler(BaseHandler):
         for each in response.doc('a[href^="http"]').items():
             if re.match("http://tieba.baidu.com/p/+\d+\?pn=", each.attr.href):
                 tiezipages = response.doc(".thread_theme_5 .red").text().split(" ")[1]
-                for c in range(1,int(tiezipages)):
-                    self.crawl(each.attr.href[:-1] + str(c), callback=self.detail_page)
+                for c in range(1,int(tiezipages) + 1):
+                    self.crawl(each.attr.href.split("=")[0] + "=" + str(c), callback=self.detail_page)
         
     @config(priority=2)
     def detail_page(self, response):
@@ -43,4 +49,5 @@ class Handler(BaseHandler):
             "url": response.url,
             "title": response.doc('.clearfix > .text-overflow').text(),
             "xcontent": response.doc(".content").text(),
+            "tie_time": response.doc(".d_post_content_firstfloor .post-tail-wrap > .tail-info").text(),
         }
