@@ -9,12 +9,19 @@ from pyspider.libs.base_handler import *
 
 class Handler(BaseHandler):
     crawl_config = {
+<<<<<<< HEAD
         "headers": {
+=======
+            "headers": {
+>>>>>>> ae001348e458bb1f896c179f05ccfe0b54f8db7b
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.71 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
             "Accept-Language": "en-US,en;q=0.5",
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ae001348e458bb1f896c179f05ccfe0b54f8db7b
     }
 
     @every(minutes=24 * 60)
