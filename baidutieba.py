@@ -9,7 +9,6 @@ from pyspider.libs.base_handler import *
 
 class Handler(BaseHandler):
     crawl_config = {
-            "headers": {
     }
 
     @every(minutes=24 * 60)
